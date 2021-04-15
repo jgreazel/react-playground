@@ -1,11 +1,12 @@
 import React from "react";
 
-import { ButtonExpPage } from './ExplorationPages';
+import { NewMeetForm } from './Forms';
+
 import "./App.less";
 
 const App = () => (
   <div className="App">
-    <ButtonExpPage/>
+    <NewMeetForm/>
   </div>
 );
 
