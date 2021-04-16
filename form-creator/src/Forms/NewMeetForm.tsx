@@ -1,6 +1,5 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import moment from "moment";
-
 import {
   Button,
   Checkbox,
@@ -14,6 +13,13 @@ import {
   Select,
   Typography,
 } from "antd";
+
+import {
+  handleChangeId,
+  handleCheckboxChange,
+  handleDateChange,
+  handleInputChange,
+} from "./util";
 
 const NewMeetForm = () => {
   const dateFormat = "MM/DD/YYYY";
@@ -36,41 +42,12 @@ const NewMeetForm = () => {
     console.log("state", data);
   };
 
-  const handleInputChange = (event: any) => {
-    console.log(event);
-    setData((prevState) => ({
-      ...prevState,
-      [event.target.id]: event.target.value,
-    }));
-  };
-
-  const handleDateChange = (date: any, dateString: string, id: string) => {
-    setData((prevState) => ({
-      ...prevState,
-      [id]: date,
-    }));
-  };
-
-  const handleChangeId = (value: any, id: string) => {
-    setData((prevState) => ({
-      ...prevState,
-      [id]: value,
-    }));
-  };
-
-  const handleCheckboxChange = (event: any) => {
-    setData((prevState) => ({
-      ...prevState,
-      [event.target.id]: event.target.checked,
-    }));
-  };
-
   const layout = {
-    labelCol: {span: 8},
-    wrapperCol: {span: 8},
+    labelCol: { span: 8 },
+    wrapperCol: { span: 8 },
   };
   const buttonRowLayout = {
-    wrapperCol: {span: 8, offset: 8},
+    wrapperCol: { span: 8, offset: 8 },
   };
 
   return (
@@ -83,7 +60,11 @@ const NewMeetForm = () => {
 
       <Form name="newMeet" {...layout} onFinish={onFinish} initialValues={data}>
         <Form.Item label="Name" name="name">
-          <Input id="name" value={data.name} onChange={handleInputChange} />
+          <Input
+            id="name"
+            value={data.name}
+            onChange={(e) => handleInputChange(e, setData)}
+          />
         </Form.Item>
         <Form.Item label="Start Date" name="startDate">
           <DatePicker
@@ -91,7 +72,7 @@ const NewMeetForm = () => {
             value={data.startDate}
             format={dateFormat}
             onChange={(date, dateString) =>
-              handleDateChange(date, dateString, "startDate")
+              handleDateChange(date, dateString, "startDate", setData)
             }
           />
         </Form.Item>
@@ -101,7 +82,7 @@ const NewMeetForm = () => {
             value={data.endDate}
             format={dateFormat}
             onChange={(date, dateString) =>
-              handleDateChange(date, dateString, "endDate")
+              handleDateChange(date, dateString, "endDate", setData)
             }
           />
         </Form.Item>
@@ -109,18 +90,23 @@ const NewMeetForm = () => {
           <Input
             id="facility"
             value={data.facility}
-            onChange={handleInputChange}
+            onChange={(e) => handleInputChange(e, setData)}
           />
         </Form.Item>
         <Form.Item label="City" name="city">
-          <Input id="city" value={data.city} onChange={handleInputChange} />
+          <Input
+            id="city"
+            value={data.city}
+            onChange={(e) => handleInputChange(e, setData)}
+          />
         </Form.Item>
         <Form.Item label="State" name="state">
           <Select
             id="state"
             showSearch
-            style={{width: 100}}
-            onChange={(v) => handleChangeId(v, "state")}>
+            style={{ width: 100 }}
+            onChange={(v) => handleChangeId(v, "state", setData)}
+          >
             <Select.Option value="AL">AL</Select.Option>
             <Select.Option value="AK">AK</Select.Option>
             <Select.Option value="AR">AR</Select.Option>
@@ -178,7 +164,8 @@ const NewMeetForm = () => {
           <Radio.Group
             id="type"
             value={data.type}
-            onChange={(e) => handleChangeId(e.target.value, "type")}>
+            onChange={(e) => handleChangeId(e.target.value, "type", setData)}
+          >
             <Radio.Button value="middleSchool">Middle School</Radio.Button>
             <Radio.Button value="highSchool">High School</Radio.Button>
             <Radio.Button value="college">College</Radio.Button>
@@ -188,7 +175,8 @@ const NewMeetForm = () => {
           <Radio.Group
             id="season"
             value={data.season}
-            onChange={(e) => handleChangeId(e.target.value, "season")}>
+            onChange={(e) => handleChangeId(e.target.value, "season", setData)}
+          >
             <Radio.Button value="outdoor">Outdoor</Radio.Button>
             <Radio.Button value="indoor">Indoor</Radio.Button>
             <Radio.Button value="xc">XC</Radio.Button>
@@ -199,7 +187,7 @@ const NewMeetForm = () => {
             id="straightaway"
             value={data.straightaway}
             min={0}
-            onChange={(v) => handleChangeId(v, "straightaway")}
+            onChange={(v) => handleChangeId(v, "straightaway", setData)}
           />
         </Form.Item>
         <Form.Item label="Oval Lanes" name="oval">
@@ -207,21 +195,21 @@ const NewMeetForm = () => {
             id="oval"
             value={data.oval}
             min={0}
-            onChange={(v) => handleChangeId(v, "oval")}
+            onChange={(v) => handleChangeId(v, "oval", setData)}
           />
         </Form.Item>
         <Form.Item label="Score" name="score">
           <Checkbox
             id="score"
             checked={data.score}
-            onChange={handleCheckboxChange}
+            onChange={(e) => handleCheckboxChange(e, setData)}
           />
         </Form.Item>
         <Form.Item label="Use Divisions" name="useDivisions">
           <Checkbox
             id="useDivisions"
             checked={data.useDivisions}
-            onChange={handleCheckboxChange}
+            onChange={(e) => handleCheckboxChange(e, setData)}
           />
         </Form.Item>
 

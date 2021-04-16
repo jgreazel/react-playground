@@ -1,12 +1,14 @@
 import React from "react";
 
-import { NewMeetForm } from './Forms';
+import { NewMeetForm, NewEventForm } from "./Forms";
 
 import "./App.less";
 
 const App = () => (
   <div className="App">
-    <NewMeetForm/>
+    <NewEventForm />
+    <hr />
+    <NewMeetForm />
   </div>
 );
 
