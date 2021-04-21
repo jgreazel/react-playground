@@ -29,6 +29,9 @@ const RunEventForm = () => {
   const buttonRowLayout = {
     wrapperCol: { span: 8, offset: 8 },
   };
+  const config = {
+    rules: [{ required: true, message: "This field is required!" }],
+  };
 
   const lanesPositionsLabel = data.runInLanes ? "Lanes" : "Positions";
   const lanesPositionsAssignmentOptions = data.runInLanes
@@ -57,7 +60,7 @@ const RunEventForm = () => {
           <Radio.Button value="multi">Multi</Radio.Button>
         </Radio.Group>
       </Form.Item>
-      <Form.Item label="Event #" name="eventNo">
+      <Form.Item {...config} label="Event #" name="eventNo">
         <InputNumber
           id="eventNo"
           value={data.eventNo}
@@ -72,7 +75,7 @@ const RunEventForm = () => {
           onChange={(e) => handleCheckboxChange(e, setData)}
         />
       </Form.Item>
-      <Form.Item label="Rounds" name="rounds">
+      <Form.Item {...config} label="Rounds" name="rounds">
         <InputNumber
           id="rounds"
           value={data.rounds}
@@ -80,7 +83,7 @@ const RunEventForm = () => {
           onChange={(v) => handleChangeId(v, "rounds", setData)}
         />
       </Form.Item>
-      <Form.Item label={lanesPositionsLabel} name="lanesPositions">
+      <Form.Item {...config} label={lanesPositionsLabel} name="lanesPositions">
         <InputNumber
           id="lanesPositions"
           value={data.lanesPositions}

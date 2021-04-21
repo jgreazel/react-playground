@@ -49,6 +49,9 @@ const NewMeetForm = () => {
   const buttonRowLayout = {
     wrapperCol: { span: 8, offset: 8 },
   };
+  const config = {
+    rules: [{ required: true, message: "This field is required!" }],
+  };
 
   return (
     <>
@@ -59,7 +62,7 @@ const NewMeetForm = () => {
       </Row>
 
       <Form name="newMeet" {...layout} onFinish={onFinish} initialValues={data}>
-        <Form.Item label="Name" name="name">
+        <Form.Item {...config} label="Name" name="name">
           <Input
             id="name"
             value={data.name}
@@ -86,14 +89,14 @@ const NewMeetForm = () => {
             }
           />
         </Form.Item>
-        <Form.Item label="Facility" name="facility">
+        <Form.Item {...config} label="Facility" name="facility">
           <Input
             id="facility"
             value={data.facility}
             onChange={(e) => handleInputChange(e, setData)}
           />
         </Form.Item>
-        <Form.Item label="City" name="city">
+        <Form.Item {...config} label="City" name="city">
           <Input
             id="city"
             value={data.city}
@@ -182,7 +185,7 @@ const NewMeetForm = () => {
             <Radio.Button value="xc">XC</Radio.Button>
           </Radio.Group>
         </Form.Item>
-        <Form.Item label="Straightaway Lanes" name="straightaway">
+        <Form.Item {...config} label="Straightaway Lanes" name="straightaway">
           <InputNumber
             id="straightaway"
             value={data.straightaway}
@@ -190,7 +193,7 @@ const NewMeetForm = () => {
             onChange={(v) => handleChangeId(v, "straightaway", setData)}
           />
         </Form.Item>
-        <Form.Item label="Oval Lanes" name="oval">
+        <Form.Item {...config} label="Oval Lanes" name="oval">
           <InputNumber
             id="oval"
             value={data.oval}
