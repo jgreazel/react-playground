@@ -10,12 +10,18 @@ const RunEventForm = () => {
     score: true,
     rounds: 1,
     lanesPositions: 8,
+    finalsLanesPositions: 8,
     event: "run",
     distance: 100,
     heatAssignment: "seedTime",
     heatOrder: "fastToSlow",
     runInLanes: true,
     lanesPositionAssignment: "random",
+    finalsLaneAssignment: "standard",
+    advancement: "time",
+    finalsHeats: 4,
+    semisHeats: 1,
+    quartersHeats: 1,
   });
 
   const onFinish = () => {
@@ -60,7 +66,7 @@ const RunEventForm = () => {
           <Radio.Button value="multi">Multi</Radio.Button>
         </Radio.Group>
       </Form.Item>
-      <Form.Item {...config} label="Event #" name="eventNo">
+      <Form.Item {...config} name="eventNo" label="Event #">
         <InputNumber
           id="eventNo"
           value={data.eventNo}
@@ -75,15 +81,16 @@ const RunEventForm = () => {
           onChange={(e) => handleCheckboxChange(e, setData)}
         />
       </Form.Item>
-      <Form.Item {...config} label="Rounds" name="rounds">
+      <Form.Item {...config} name="rounds" label="Rounds">
         <InputNumber
           id="rounds"
           value={data.rounds}
           min={1}
+          max={4}
           onChange={(v) => handleChangeId(v, "rounds", setData)}
         />
       </Form.Item>
-      <Form.Item {...config} label={lanesPositionsLabel} name="lanesPositions">
+      <Form.Item {...config} name="lanesPositions" label={lanesPositionsLabel}>
         <InputNumber
           id="lanesPositions"
           value={data.lanesPositions}
@@ -91,6 +98,20 @@ const RunEventForm = () => {
           onChange={(v) => handleChangeId(v, "lanesPositions", setData)}
         />
       </Form.Item>
+      {data.rounds > 1 && (
+        <Form.Item
+          {...config}
+          name="finalsLanesPositions"
+          label={`Finals ${lanesPositionsLabel}`}
+        >
+          <InputNumber
+            id="lanesPositions"
+            value={data.lanesPositions}
+            min={1}
+            onChange={(v) => handleChangeId(v, "lanesPositions", setData)}
+          />
+        </Form.Item>
+      )}
       <Form.Item label="Event" name="event">
         <Radio.Group
           id="event"
@@ -168,6 +189,60 @@ const RunEventForm = () => {
           ))}
         </Select>
       </Form.Item>
+      {data.rounds > 1 && data.runInLanes && (
+        <Form.Item label="Finals Lane Assignment" name="finalsLaneAssignment">
+          <Select
+            id="finalsLaneAssignment"
+            onChange={(v) => handleChangeId(v, "finalsLaneAssignment", setData)}
+          >
+            <Select.Option value="standard">Standard Lanes</Select.Option>
+            <Select.Option value="random">Random</Select.Option>
+            <Select.Option value="custom">Custom Lanes</Select.Option>
+            <Select.Option value="iaaf">IAAF 166.3</Select.Option>
+          </Select>
+        </Form.Item>
+      )}
+      {data.rounds > 1 && (
+        <Form.Item label="Advancement" name="advancement">
+          <Select
+            id="advancement"
+            onChange={(v) => handleChangeId(v, "advancement", setData)}
+          >
+            <Select.Option value="time">Time</Select.Option>
+            <Select.Option value="placeTime">Place/Time</Select.Option>
+          </Select>
+        </Form.Item>
+      )}
+      {data.rounds > 1 && (
+        <Form.Item {...config} name="finalsHeats" label="Finals Heats">
+          <InputNumber
+            id="finalsHeats"
+            value={data.finalsHeats}
+            min={1}
+            onChange={(v) => handleChangeId(v, "finalsHeats", setData)}
+          />
+        </Form.Item>
+      )}
+      {data.rounds > 2 && (
+        <Form.Item {...config} name="semisHeats" label="Semis Heats">
+          <InputNumber
+            id="semisHeats"
+            value={data.semisHeats}
+            min={1}
+            onChange={(v) => handleChangeId(v, "semisHeats", setData)}
+          />
+        </Form.Item>
+      )}
+      {data.rounds > 3 && (
+        <Form.Item {...config} name="quartersHeats" label="Quarters Heats">
+          <InputNumber
+            id="quartersHeats"
+            value={data.quartersHeats}
+            min={1}
+            onChange={(v) => handleChangeId(v, "quartersHeats", setData)}
+          />
+        </Form.Item>
+      )}
 
       <Form.Item {...buttonRowLayout}>
         <Button type="primary" htmlType="submit">
