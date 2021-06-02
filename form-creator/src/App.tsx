@@ -3,23 +3,30 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { NewMeetForm, NewEventForm } from "./Forms";
-import Home from "./pages";
+import { Wireframe, EventCalling } from "./pages";
 
 import "./App.less";
+
+const eventDummyData = ["100 Meter Dash", "200 Meter Dash", "400 Meter Dash"];
 
 const App = () => (
   <div className="App">
     <Router>
-      <Home>
+      <Wireframe>
         <Switch>
-          <Route path="/track">
+          <Route exact path="/track">
             <NewEventForm />
             <hr />
             <NewMeetForm />
           </Route>
-          <Route path="/"></Route>
+          <Route exact path="/">
+            HOME page
+          </Route>
+          <Route exact path="/eventCalling">
+            <EventCalling eventList={eventDummyData} />
+          </Route>
         </Switch>
-      </Home>
+      </Wireframe>
     </Router>
   </div>
 );

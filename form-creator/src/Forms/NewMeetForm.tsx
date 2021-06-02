@@ -54,7 +54,7 @@ const NewMeetForm = () => {
   };
 
   return (
-    <>
+    <div style={{ padding: "10px" }}>
       <Row>
         <Col span={8} offset={8}>
           <Typography.Title level={3}>Create New Meet</Typography.Title>
@@ -222,7 +222,7 @@ const NewMeetForm = () => {
           </Button>
         </Form.Item>
       </Form>
-    </>
+    </div>
   );
 };
 

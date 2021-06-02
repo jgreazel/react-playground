@@ -19,12 +19,16 @@ const Wireframe = (props: Props) => {
           <Menu.Item key="2">
             <Link to="/track">Track</Link>
           </Menu.Item>
+
+          <Menu.Item key="3">
+            <Link to="/eventCalling">Event Calling</Link>
+          </Menu.Item>
         </Menu>
       </Header>
 
       <Content>{props.children}</Content>
 
-      <Footer>Buncha Junk</Footer>
+      {/* <Footer>Footer</Footer> */}
     </Layout>
   );
 };
