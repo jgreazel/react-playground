@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Button, Card, Typography } from "antd";
+import { reduceEachLeadingCommentRange } from "typescript";
+
+// ! maybe it could tweet out event calls
 
 type Props = {
   eventList: string[];
 };
 
 const callOrder = ["First Call", "Second Call", "Third Call", "Past"];
-
-enum buttonColor {
-  "First Call" = "blue",
-  "Second Call" = "green",
-  "Third Call" = "red",
-  "Past" = "black",
-}
 
 const EventCalling = (props: Props) => {
   const [eventCalls, setEventCalls] = useState<number[]>([]);
@@ -29,12 +25,17 @@ const EventCalling = (props: Props) => {
       {props.eventList.map(
         (x) =>
           callOrder[eventCalls[props.eventList.indexOf(x)]] !== "Past" && (
-            <Card style={{ width: 500, margin: 5 }} key={x}>
+            <Card key={x}>
               {x}
               <Button
                 style={{
                   float: "right",
                 }}
+                type="primary"
+                danger={
+                  callOrder[eventCalls[props.eventList.indexOf(x)]] ===
+                  "Third Call"
+                }
                 onClick={() =>
                   setEventCalls((prevEventCalls) => {
                     let prev = [...prevEventCalls];
